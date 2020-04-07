@@ -26,7 +26,7 @@ def home_page():
 def scrape():
     mars = mongo.db.mars
     mars_facts = scrape_mars.scrape()
-    mars.update({}, mars_facts, upsert=True)
+    mars.replace_one({}, mars_facts, upsert=True)
     return render_template("index.html", mars=mars)
 
 if __name__ == "__main__":

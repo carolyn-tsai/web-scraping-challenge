@@ -37,8 +37,8 @@ def scrape():
     time.sleep(3)
     nasa_html = browser.html
     nasa_soup = BeautifulSoup(nasa_html, 'html.parser')
-    news_title = nasa_soup.find("div", class_="content_title").find("a").text
-    news_p = nasa_soup.find("div", class_="article_teaser_body").text
+    news_title = nasa_soup.find("div", class_="content_title").get_text()
+    news_p = nasa_soup.find("div", class_="article_teaser_body").get_text()
 
     mars_scrapped_data["news_title"] = news_title
     mars_scrapped_data["news_p"] = news_p
@@ -67,10 +67,11 @@ def scrape():
     browser.visit(twitter_url)
     time.sleep(3)
     twitter_html = browser.html
-    twitter_soup = BeautifulSoup(twitter_html, 'html.parser')
-    twitter_info = twitter_soup.find("p", class_="TweetTextSize TweetTextSize--normal js-tweet-text tweet-text").text
-
-    mars_scrapped_data["twitter_mars_weather"] = twitter_info
+    twitter_soup = BeautifulSoup(twitter_html, "html.parser")
+    twitter_attrs = {"class": "tweet", "data-name": "Mars Weather"}
+    twitter_info = twitter_soup.find("div", attrs=twitter_attrs)
+    twitter_weather = twitter_info.find("p", "tweet-text").get_text()
+    mars_scrapped_data["twitter_mars_weather"] = twitter_weather
 
     ############################
 
@@ -102,7 +103,7 @@ def scrape():
     for hemisphere in mars_hemis:
         main_url = "https://astrogeology.usgs.gov"
         mars_hemi_dict = {}
-        hemi = hemisphere.find("h3").text
+        hemi = hemisphere.find("h3").get_text()
         partial_url = hemisphere.find("a", class_="itemLink product-item")["href"]
         hemi_url = main_url + partial_url
         browser.visit(hemi_url)

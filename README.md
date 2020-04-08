@@ -1,4 +1,4 @@
-# web_scraping_challenge
+# Web Scraping Challenge
 
 ## Mission to Mars
 

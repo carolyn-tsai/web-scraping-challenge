@@ -26,6 +26,9 @@ MongoDB and Flask templating were used to create a new HTML page that displays a
 - Another root route was created that queries the Mongo database and passes the mars data into an HTML template that displays the data
 - A template HTML file called *index.html* will take the mars data dictionary and display all of the data in the appropriate HTML elements
 
+![Landing Page](Images/landing_page.PNG)
+
+
 ### Tools Used:
 
 - Jupyter Notebook
